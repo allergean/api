@@ -1,22 +1,16 @@
-var pg = require('pg'),
+var db = require('./../db')
     handleError = require('./helpers').handleError
     ;
 
 function listAllergens(req, res, next) {
-  return pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-
-    const query = client.query('SELECT id, description FROM allergens');
-    const results = [];
-
-    query.on('row', function(row) {
-      results.push(row);
-    });
-
-    query.on('end', function() {
+  db.allergens.findAll()
+    .then(function(results) {
       res.send(results);
       return next();
+    })
+    .catch(function(err) {
+      handleError(err, req, res, next);
     });
-  });
 };
 
 exports.register = function(server) {

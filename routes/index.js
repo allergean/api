@@ -1,7 +1,11 @@
-var allergens = require('./allergens');
-var products = require('./products');
+var allergens = require('./allergens')
+    , products = require('./products')
+    , restify = require('restify')
+    ;
 
 exports.register = function(server) {
+  server.use(restify.queryParser());
+
   allergens.register(server);
   products.register(server);
 
