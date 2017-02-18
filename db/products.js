@@ -27,7 +27,10 @@ exports.findAll = function() {
         });
 
         allergensQuery.on('end', function() {
-          fulfill(Object.values(results));
+          let values = Object.keys(results).map(function(key) {
+              return results[key];
+          });
+          fulfill(values);
           done();
         });
 
