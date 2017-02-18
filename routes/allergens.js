@@ -5,7 +5,7 @@ var db = require('./../db')
 function listAllergens(req, res, next) {
   db.allergens.findAll()
     .then(function(results) {
-      res.send(results);
+      res.json(results, {'Content-type': 'application/json; charset=utf-8'});
       return next();
     })
     .catch(function(err) {

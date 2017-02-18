@@ -5,7 +5,7 @@ var db = require('./../db'),
 function listProducts(req, res, next) {
   db.products.findAll()
     .then(function(results) {
-      res.send(results);
+      res.send(results, {'Content-type': 'application/json; charset=utf-8'});
       return next();
     })
     .catch(function(err) {
@@ -19,7 +19,7 @@ function getProduct(req, res, next) {
       if (result === null) {
         return res.send(404);
       }
-      res.send(result);
+      res.json(result, {'Content-type': 'application/json; charset=utf-8'});
       return next();
     })
     .catch(function(err) {
