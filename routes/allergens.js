@@ -1,10 +1,6 @@
-var pg = require('pg');
-
-function handleError(err, req, res, next) {
-    console.error(err);
-    res.send(500, {error: "Internal server error"});
-    return next(err);
-}
+var pg = require('pg'),
+    handleError = require('./helpers').handleError
+    ;
 
 function listAllergens(req, res, next) {
   return pg.connect(process.env.DATABASE_URL, function(err, client, done) {
